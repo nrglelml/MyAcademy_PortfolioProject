@@ -1,0 +1,32 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Portfolio.Data.Context;
+using Portfolio.Data.Entities;
+
+namespace Portfolio.Controllers
+{
+    public class AboutController : Controller
+    {
+        private readonly AppDBContext _context;
+        public AboutController (AppDBContext context)
+        {
+            _context = context;
+        }
+        public IActionResult Index()
+        {
+            var about=_context.Abouts.FirstOrDefault();
+            return View(about);
+        }
+        [HttpGet]
+        public IActionResult CreateAbout()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult CreateAbout(About about)
+        {
+            _context.Abouts.Add(about);
+            _context.SaveChanges();
+           return RedirectToAction("Index");
+        }
+    }
+}
