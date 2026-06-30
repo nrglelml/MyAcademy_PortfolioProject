@@ -3,7 +3,7 @@
     ViewData["Title"] = "Hakkımda";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<br />
 
 <section class="col-span-12 lg:col-span-12">
 
@@ -45,12 +45,12 @@
 
                             <td class="px-lg py-md text-right">
                                 <div class="flex justify-end gap-sm">
-                                    <button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-md transition-all">
+                                    <a class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-md transition-all"href="/About/UpdateAbout/@Model.Id">
                                         <span class="material-symbols-outlined text-[20px]">edit</span>
-                                    </button>
-                                    <button class="p-1.5 text-on-surface-variant hover:text-error hover:bg-error-container/20 rounded-md transition-all">
+                                    </a>
+                                    <a class="p-1.5 text-on-surface-variant hover:text-error hover:bg-error-container/20 rounded-md transition-all" href="/About/DeleteAbout/@Model.Id">
                                         <span class="material-symbols-outlined text-[20px]">delete</span>
-                                    </button>
+                                    </a>
                                 </div>
                             </td>
                         </tr>
