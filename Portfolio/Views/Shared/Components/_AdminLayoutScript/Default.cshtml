@@ -1,0 +1,24 @@
+﻿@*
+  _AdminLayoutScript
+*@
+<script>
+    // Simple micro-interactions
+    document.querySelectorAll('button, a').forEach(el => {
+        el.addEventListener('mousedown', () => {
+            el.classList.add('opacity-80');
+        });
+        el.addEventListener('mouseup', () => {
+            el.classList.remove('opacity-80');
+        });
+    });
+
+    // Search bar focus effect
+    const searchInput = document.querySelector('input[type="text"]');
+    searchInput.addEventListener('focus', () => {
+        searchInput.parentElement.classList.add('w-80');
+    });
+    searchInput.addEventListener('blur', () => {
+        searchInput.parentElement.classList.remove('w-80');
+    });
+</script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
