@@ -1,0 +1,61 @@
+﻿@model About
+@if(Model != null)
+{
+    <section class="py-section-padding-mobile md:py-section-padding-desktop px-gutter relative bg-surface-container-lowest" id="about">
+        <div class="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-2 gap-stack-lg items-center">
+            <div class="relative w-full aspect-square rounded-xl overflow-hidden glass-card">
+                <img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" data-alt="Professional portrait of a software engineer in a modern workspace" src="@Model.ImageUrl" />
+            </div>
+            <div class="flex flex-col gap-stack-md">
+                <h2 class="font-headline-md text-headline-md text-on-background">Hakkımda</h2>
+                <p class="font-body-md text-body-md text-on-surface-variant">@Model.Title</p>
+                <p class="font-body-md text-body-md text-on-surface-variant">@Model.Description</p>
+                <div class="grid grid-cols-2 gap-stack-md mt-stack-sm">
+                    <div>
+                        <h4 class="font-label-sm text-label-sm text-primary mb-1">Frontend</h4>
+                        <p class="font-body-md text-body-md text-on-surface-variant">
+                            @(string.IsNullOrEmpty(ViewBag.FrontendTechs) ? "Belirtilmemiş" : ViewBag.FrontendTechs)
+                        </p>
+                    </div>
+                    <div>
+                        <h4 class="font-label-sm text-label-sm text-primary mb-1">Backend</h4>
+                        <p class="font-body-md text-body-md text-on-surface-variant">
+                            @(string.IsNullOrEmpty(ViewBag.BackendTechs) ? "Belirtilmemiş" : ViewBag.BackendTechs)
+                        </p>
+                    </div>
+                    <div>
+                        <h4 class="font-label-sm text-label-sm text-primary mb-1">Database</h4>
+                        <p class="font-body-md text-body-md text-on-surface-variant">
+                            @(string.IsNullOrEmpty(ViewBag.DatabaseTechs) ? "Belirtilmemiş" : ViewBag.DatabaseTechs)
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+else
+{
+    <section class="py-section-padding-mobile md:py-section-padding-desktop px-gutter relative bg-surface-container-lowest" id="about">
+        <div class="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-2 gap-stack-lg items-center">
+            <div class="relative w-full aspect-square rounded-xl overflow-hidden glass-card">
+                <img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" data-alt="Professional portrait of a software engineer in a modern workspace" src="/defaultMe.jpg" />
+            </div>
+            <div class="flex flex-col gap-stack-md">
+                <h2 class="font-headline-md text-headline-md text-on-background">Hakkımda</h2>
+                <p class="font-body-md text-body-md text-on-surface-variant">Hello! I'm Alex, a passionate software engineer with over 5 years of experience creating digital products. I specialize in building responsive, accessible, and highly performant web applications.</p>
+                <p class="font-body-md text-body-md text-on-surface-variant">My journey in tech started with a curiosity about how things work on the internet, which quickly evolved into a deep dive into frontend frameworks and backend architectures. I believe in clean code, user-centric design, and continuous learning.</p>
+                <div class="grid grid-cols-2 gap-stack-md mt-stack-sm">
+                    <div>
+                        <h4 class="font-label-sm text-label-sm text-primary mb-1">Frontend</h4>
+                        <p class="font-body-md text-body-md text-on-surface-variant">React, Next.js, Vue, Tailwind CSS</p>
+                    </div>
+                    <div>
+                        <h4 class="font-label-sm text-label-sm text-primary mb-1">Backend</h4>
+                        <p class="font-body-md text-body-md text-on-surface-variant">Node.js, Express, PostgreSQL, MongoDB</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}

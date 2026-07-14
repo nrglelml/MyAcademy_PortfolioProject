@@ -16,8 +16,8 @@ namespace Portfolio.Controllers
 
         public IActionResult Index()
         {
-            var about = _context.Abouts.FirstOrDefault();
-            return View(about);
+            var education = _context.Educations.ToList();
+            return View(education);
         }
         [HttpGet]
         public IActionResult CreateEducation()
@@ -33,20 +33,20 @@ namespace Portfolio.Controllers
         }
         public IActionResult UpdateEducation(int id)
         {
-            var about = _context.Abouts.Find(id);
-            return View(about);
+            var education = _context.Educations.Find(id);
+            return View(education);
         }
         [HttpPost]
-        public IActionResult UpdateEducation(About about)
+        public IActionResult UpdateEducation(Education education)
         {
-            _context.Abouts.Update(about);
+            _context.Educations.Update(education);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
         public IActionResult DeleteEducation(int id)
         {
-            var about = _context.Abouts.Find(id);
-            _context.Abouts.Remove(about);
+            var education = _context.Educations.Find(id);
+            _context.Educations.Remove(education);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }

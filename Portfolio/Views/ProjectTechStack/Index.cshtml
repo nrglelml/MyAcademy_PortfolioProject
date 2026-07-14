@@ -1,0 +1,55 @@
+﻿@model IEnumerable<ProjectViewModel>
+@{
+    ViewData["Title"] = "Proje Teknoloji Yığını";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int count = 0;
+}
+<br />
+
+<h1>Proje Teknoloji Yığını</h1>
+<br />
+@if(!Model.Any())
+{
+    <div class="alert alert-warning" role="alert">
+        Henüz bir proje teknoloji yığını eklenmemiştir.
+    </div>
+    <a href="/ProjectTechStack/Create" class="btn btn-primary">
+        Yeni Ekle
+    </a>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Proje Adı</th>
+                <th>Kullanılan Teknolojiler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                count++;
+                <tr>
+                    <td>@count</td>
+                    <td>@item.ProjectName</td> 
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.TechNames))
+                        {
+                            @item.TechNames
+                        }
+                        else
+                        {
+                            <span class="text-muted">Teknoloji eklenmemiş</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a href="/ProjectTechStack/Create" class="btn btn-outline-primary">
+        Yeni Ekle
+    </a>
+}
