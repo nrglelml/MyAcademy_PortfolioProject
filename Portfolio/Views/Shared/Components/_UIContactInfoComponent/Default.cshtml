@@ -1,0 +1,83 @@
+﻿@model ContactInfo
+@*
+    Default Contact Info Component
+*@
+@if(Model != null)
+{
+    <div>
+        <h2 class="font-headline-md text-headline-md text-on-background mb-4">Benimle İletişime Geçin!</h2>
+        <p class="font-body-md text-body-md text-on-surface-variant mb-stack-lg max-w-md">Şu anda serbest çalışmalara açığım ve yeni fırsatlara hazırım. İletişime geçin ve bir sonraki projenizi tartışalım.</p>
+        <div class="space-y-6">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined">mail</span>
+                </div>
+                <div>
+                    <h4 class="font-label-sm text-label-sm text-on-surface-variant">Email</h4>
+                    <p class="font-body-md text-body-md text-on-background">@Model.Email</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined">location_on</span>
+                </div>
+                <div>
+                    <h4 class="font-label-sm text-label-sm text-on-surface-variant">Konum</h4>
+                    <p class="font-body-md text-body-md text-on-background">@Model.Address</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined">link</span>
+                </div>
+                <div>
+                    <h4 class="font-label-sm text-label-sm text-on-surface-variant">Sosyal Medya Hesaplarım</h4>
+                    <div class="flex gap-4 mt-1">
+                        <a class="text-on-background hover:text-primary transition-colors" target="_blank" href="@Model.LinkendinURL">LinkedIn</a>
+                        <a class="text-on-background hover:text-primary transition-colors" target="_blank" href="@Model.GithubURL">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div>
+        <h2 class="font-headline-md text-headline-md text-on-background mb-4">Benimle İletişime Geçin!</h2>
+        <p class="font-body-md text-body-md text-on-surface-variant mb-stack-lg max-w-md">Şu anda serbest çalışmalara açığım ve yeni fırsatlara hazırım. İletişime geçin ve bir sonraki projenizi tartışalım.</p>
+        <div class="space-y-6">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined">mail</span>
+                </div>
+                <div>
+                    <h4 class="font-label-sm text-label-sm text-on-surface-variant">Email</h4>
+                    <p class="font-body-md text-body-md text-on-background"></p>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined">location_on</span>
+                </div>
+                <div>
+                    <h4 class="font-label-sm text-label-sm text-on-surface-variant">Konum</h4>
+                    <p class="font-body-md text-body-md text-on-background"></p>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined">link</span>
+                </div>
+                <div>
+                    <h4 class="font-label-sm text-label-sm text-on-surface-variant">Sosyal Medya Hesaplarım</h4>
+                    <div class="flex gap-4 mt-1">
+                        <a class="text-on-background hover:text-primary transition-colors" target="_blank" href="#">LinkedIn</a>
+                        <a class="text-on-background hover:text-primary transition-colors" target="_blank" href="#">GitHub</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
