@@ -1,0 +1,30 @@
+﻿@model ContactInfo
+@{
+    ViewData["Title"] = "İletişim Bilgisini Güncelle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+
+
+<form method="post" action="/Admin/ContactInfo/UpdateContactInfo">
+    <label>Mail</label>
+    <input type="text" asp-for="Email" class="form-control" required />
+    <br />
+    <label>Adres</label>
+    <textarea rows="5" asp-for="Address" class="form-control" required></textarea>
+    <br />
+    <label>Linkedin URL</label>
+    <input type="text" asp-for="LinkedinURL" class="form-control" />
+    <br />
+    <label>Github URL</label>
+    <input type="text" asp-for="GithubURL" class="form-control" />
+    <br />
+    <button class="btn btn-outline-dark">Güncelle</button>
+</form>
+
+
+
+
+
+
+
