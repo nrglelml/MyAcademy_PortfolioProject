@@ -1,0 +1,124 @@
+﻿@model List<UserMessage>
+@{
+    ViewData["Title"] = "Gelen Mesajlar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+            <h5 class="mb-0"><i class="fas fa-envelope me-2"></i> Gelen Mesajlar</h5>
+            <span class="badge bg-primary">Toplam: @Model.Count Bilgi</span>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped mb-0 align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th style="width: 5%">Durum</th>
+                            <th style="width: 20%">Gönderen</th>
+                            <th style="width: 20%">E-Posta</th>
+                            <th style="width: 40%">Mesaj İçeriği</th>
+                            <th style="width: 15%" class="text-center">İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (!Model.Any())
+                        {
+                            <tr>
+                                <td colspan="5" class="text-center py-4 text-muted">
+                                    <i class="fas fa-inbox fa-2x mb-2 d-block"></i>
+                                    Henüz gelen bir mesaj bulunmuyor.
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr id="row-@item.Id" class="@(item.Isread ? "text-muted" : "fw-bold table-warning")">
+                                    <td>
+                                        <span id="badge-@item.Id" class="badge @(item.Isread ? "bg-secondary" : "bg-success")">
+                                            @(item.Isread ? "Okundu" : "Yeni")
+                                        </span>
+                                    </td>
+                                    <td>@item.Name</td>
+                                    <td><a href="mailto:@item.Email" class="text-decoration-none">@item.Email</a></td>
+                                    <td>
+                                        <div class="text-truncate" style="max-width: 450px;" title="@item.MessageBody">
+                                            @item.MessageBody
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-sm btn-outline-primary me-1"
+                                                data-bs-toggle="modal" data-bs-target="#messageModal-@item.Id">
+                                            <i class="fas fa-eye"></i> Oku
+                                        </button>
+
+                                        <a href="/Admin/Message/DeleteMessage/@item.Id"
+                                           class="btn btn-sm btn-outline-danger"
+                                           onclick="return confirm('Bu mesajı silmek istediğinize emin misiniz?')">
+                                            <i class="fas fa-trash"></i> Sil
+                                        </a>
+                                    </td>
+                                </tr>
+
+                                <div class="modal fade message-modal" id="messageModal-@item.Id" data-message-id="@item.Id" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title text-dark">Mesaj Detayı</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+                                            </div>
+                                            <div class="modal-body text-dark">
+                                                <p><strong>Gönderen:</strong> @item.Name</p>
+                                                <p><strong>E-Posta:</strong> @item.Email</p>
+                                                <hr />
+                                                <p><strong>Mesaj:</strong></p>
+                                                <div class="p-3 bg-light rounded border" style="white-space: pre-wrap;">
+                                                    @item.MessageBody
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer border-top">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('.message-modal').forEach(modal => {
+        modal.addEventListener('hidden.bs.modal', function () {
+            const messageId = this.getAttribute('data-message-id');
+
+            fetch(`/Admin/Message/ReadMessageApi/${messageId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const row = document.getElementById(`row-${messageId}`);
+                    const badge = document.getElementById(`badge-${messageId}`);
+
+                    if (row && badge) {
+                        row.className = "text-muted"; // Sarı arka plan kalkar
+                        badge.className = "badge bg-secondary"; // Rozet gri olur
+                        badge.innerText = "Okundu"; // Yazı güncellenir
+                    }
+                }
+            })
+            .catch(error => console.error('Hata:', error));
+        });
+    });
+</script>
