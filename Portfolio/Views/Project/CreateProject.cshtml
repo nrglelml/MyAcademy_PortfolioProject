@@ -4,24 +4,27 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<form method="post">
+<form method="post" action="/Admin/Project/CreateProject">
+    <!-- Tüm form genelindeki görünmeyen hataları (ProjectTechStacks gibi) listelemek için bunu ekleyin -->
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
     <label>Proje Adı</label>
-    <input type="text" name="Name" class="form-control" asp-for="Name" />
+    <input type="text" class="form-control" asp-for="Name" />
     <span class="text-danger" asp-validation-for="Name"></span>
     <br />
 
     <label>Görsel Url</label>
-    <input type="text" name="ImageUrl" class="form-control" asp-for="ImageUrl" />
+    <input type="text" class="form-control" asp-for="ImageUrl" />
     <span class="text-danger" asp-validation-for="ImageUrl"></span>
     <br />
 
     <label>Proje Açıklaması</label>
-    <textarea type="text" name="Description" class="form-control" asp-for="Description" rows="3"></textarea>
+    <textarea class="form-control" asp-for="Description" rows="3"></textarea>
     <span class="text-danger" asp-validation-for="Description"></span>
     <br />
 
-    <label>Github Url</label>
-    <input type="text" name="GithubUrl" class="form-control" asp-for="GithubUrl" />
+    <label>Github Url (Örn: https://github.com/...)</label>
+    <input type="text" class="form-control" asp-for="GithubUrl" />
     <span class="text-danger" asp-validation-for="GithubUrl"></span>
     <br />
 

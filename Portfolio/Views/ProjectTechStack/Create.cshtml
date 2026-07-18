@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<form method="post">
+<form method="post" action="/Admin/ProjectTechStack/Create">
     <label>Proje</label>
     <select  class="form-control" asp-for="ProjectId" asp-items="@ViewBag.projects" required>
        <option selected> ------Projeyi Seçiniz-------</option>

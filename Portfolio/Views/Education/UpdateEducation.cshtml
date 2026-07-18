@@ -1,0 +1,39 @@
+﻿@model Education
+@{
+    ViewData["Title"] = "Eğitim Bilgisi Güncelle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form method="post" action="/Admin/Education/UpdateEducation">
+    <input type="hidden" asp-for="Id" />
+    <label>Okul Adı</label>
+    <input type="text" name="SchoolName" class="form-control" asp-for="SchoolName" />
+    <span class="text-danger" asp-validation-for="SchoolName"></span>
+    <br />
+
+    <label>Bölüm</label>
+    <input type="text" name="Department" class="form-control" asp-for="Department" />
+    <span class="text-danger" asp-validation-for="Department"></span>
+    <br />
+
+    <label>Açıklama</label>
+    <textarea type="text" name="Description" class="form-control" asp-for="Description" rows="3"></textarea>
+    <span class="text-danger" asp-validation-for="Description"></span>
+    <br />
+
+    <label>Ortalama</label>
+    <input type="text" name="GPA" class="form-control" asp-for="GPA" />
+    <span class="text-danger" asp-validation-for="GPA"></span>
+
+    <br />
+    <label>Başlangıç Yılı</label>
+    <input type="text" name="StarYear" class="form-control" asp-for="StarYear" />
+    <span class="text-danger" asp-validation-for="StarYear"></span>
+    <br />
+    <label>Mezuniyet Yılı (Boş Geçebilirsiniz)</label>
+    <input type="text" name="GradationYear" class="form-control" asp-for="GradationYear" />
+    <span class="text-danger" asp-validation-for="GradationYear"></span>
+
+
+    <button class="btn btn-outline-dark">Güncelle</button>
+</form>

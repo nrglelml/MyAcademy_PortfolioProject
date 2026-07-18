@@ -18,8 +18,7 @@ namespace Portfolio.Data.Entities
         public string SchoolName { get; set; }
 
         [Required(ErrorMessage = "Ortalama boş geçilemez.")]
-        [Range(0.0, 4.0, ErrorMessage = "Ortalama (GPA) 0.0 ile 4.0 arasında olmalıdır.")]
-        public double GPA { get; set; }
+        public string GPA { get; set; }
 
         [Required(ErrorMessage = "Başlangıç yılı boş geçilemez.")]
         [Range(1900, 2100, ErrorMessage = "Lütfen geçerli bir başlangıç yılı giriniz.")]

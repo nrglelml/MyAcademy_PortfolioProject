@@ -21,6 +21,6 @@ namespace Portfolio.Data.Entities
         [Required(ErrorMessage = "Proje görseli boş geçilemez.")]
         public string ImageUrl { get; set; }
 
-        public List<ProjectTechStack> ProjectTechStacks { get; set; }
+        public List<ProjectTechStack>? ProjectTechStacks { get; set; } = new List<ProjectTechStack>();
     }
 }   

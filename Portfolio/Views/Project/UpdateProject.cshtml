@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<form method="post">
+<form method="post" action="/Admin/Project/UpdateProject">
     <input type="hidden" asp-for="Id" />
     <label>Proje Adı</label>
     <input type="text" name="Name" class="form-control" asp-for="Name" />
