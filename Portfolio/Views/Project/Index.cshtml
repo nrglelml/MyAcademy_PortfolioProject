@@ -24,14 +24,14 @@
                 <td><img src="@project.ImageUrl" style="height:50px;width:50px" /></td>
                 <td>
                     <button onclick="deleteProject(@project.Id)" class="btn btn-outline-danger">Sil</button>
-                    <a href="/Project/UpdateProject/@project.Id" class="btn btn-outline-info">Güncelle</a>
+                    <a href="/Admin/Project/UpdateProject/@project.Id" class="btn btn-outline-info">Güncelle</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
 
-<a href="/Project/CreateProject/" class="btn btn-outline-dark">Yeni Proje Oluştur</a>
+<a href="/Admin/Project/CreateProject/" class="btn btn-outline-dark">Yeni Proje Oluştur</a>
 
 <script>
     function deleteProject(id){
@@ -47,7 +47,7 @@
       cancelButtonColor: "#d33",
     }).then((result) => {
       if (result.isConfirmed)
-      window.location.href = "/Project/DeleteProject/"+id;
+      window.location.href = "/Admin/Project/DeleteProject/"+id;
     });
     }
 </script>

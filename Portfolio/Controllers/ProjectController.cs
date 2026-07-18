@@ -5,7 +5,7 @@ using System;
 
 namespace Portfolio.Controllers
 {
-    public class ProjectController : Controller
+    public class ProjectController : BaseAdminController
     {
         private readonly AppDBContext _context;
 
@@ -13,20 +13,20 @@ namespace Portfolio.Controllers
         {
             _context = context;
         }
-
+        [HttpGet]
         public IActionResult Index()
         {
             var projects = _context.Projects.ToList();
             return View(projects);
         }
 
-        [HttpGet]
+        [HttpGet("CreateProject")]
         public IActionResult CreateProject()
         {
             return View();
         }
 
-        [HttpPost]
+        [HttpPost("CreateProject")]
         public IActionResult CreateProject(Project project)
         {
             if (!ModelState.IsValid)
@@ -38,14 +38,14 @@ namespace Portfolio.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
+        [HttpGet("UpdateProject/{id}")]
         public IActionResult UpdateProject(int id)
         {
             var project = _context.Projects.Find(id);
             return View(project);
         }
 
-        [HttpPost]
+        [HttpPost("UpdateProject")]
         public IActionResult UpdateProject(Project project)
         {
             if (!ModelState.IsValid)
@@ -56,7 +56,8 @@ namespace Portfolio.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        
+        [HttpGet("DeleteProject/{id}")]
         public IActionResult DeleteProject(int id)
         {
             var project = _context.Projects.Find(id);

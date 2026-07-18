@@ -5,7 +5,7 @@ using Portfolio.Data.Entities;
 
 namespace Portfolio.Controllers
 {
-    public class EducationController : Controller
+    public class EducationController : BaseAdminController
     {
         private readonly AppDBContext _context;
 
@@ -13,36 +13,39 @@ namespace Portfolio.Controllers
         {
             _context = context;
         }
+        [HttpGet]
 
         public IActionResult Index()
         {
             var education = _context.Educations.ToList();
             return View(education);
         }
-        [HttpGet]
+        [HttpGet("CreateEducation")]
         public IActionResult CreateEducation()
         {
             return View();
         }
-        [HttpPost]
-        public IActionResult CreateEducation(About about)
+        [HttpPost("CreateEducation")]
+        public IActionResult CreateEducation(Education education)
         {
-            _context.Abouts.Add(about);
+            _context.Educations.Add(education);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
+        [HttpGet("UpdateEducation/{id}")]
         public IActionResult UpdateEducation(int id)
         {
             var education = _context.Educations.Find(id);
             return View(education);
         }
-        [HttpPost]
+        [HttpPost("UpdateEducation")]
         public IActionResult UpdateEducation(Education education)
         {
             _context.Educations.Update(education);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
+        [HttpGet("DeleteEducation/{id}")]
         public IActionResult DeleteEducation(int id)
         {
             var education = _context.Educations.Find(id);

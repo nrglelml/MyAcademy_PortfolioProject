@@ -7,7 +7,7 @@ using Portfolio.Models;
 
 namespace Portfolio.Controllers
 {
-    public class ProjectTechStackController : Controller
+    public class ProjectTechStackController : BaseAdminController
     {
         private readonly AppDBContext _context;
 
@@ -15,7 +15,7 @@ namespace Portfolio.Controllers
         {
             _context = context;
         }
-
+        [HttpGet]
         public IActionResult Index()
         {
             var projectGroups = _context.ProjectTechStacks
@@ -33,6 +33,7 @@ namespace Portfolio.Controllers
 
             return View(projectGroups);
         }
+        [HttpGet("Create")]
         public IActionResult Create()
         {
             var projects = _context.Projects.ToList();
@@ -51,7 +52,7 @@ namespace Portfolio.Controllers
                                   }).ToList();
             return View();
         }
-        [HttpPost]
+        [HttpPost("Create")]
         public IActionResult Create(ProjectTechStack projectTechStack)
         {
             ModelState.Remove("Project");
@@ -77,7 +78,7 @@ namespace Portfolio.Controllers
 
             return View(projectTechStack);
         }
-
+        [HttpGet("Update/{id}")]
         public IActionResult Update(int id)
         {
             var projectTechStack = _context.ProjectTechStacks.Find(id);
@@ -97,7 +98,7 @@ namespace Portfolio.Controllers
                                   }).ToList();
             return View(projectTechStack);
         }
-        [HttpPost]
+        [HttpPost("Update")]
         public IActionResult Update(ProjectTechStack projectTechStack)
         {
             if (!ModelState.IsValid)
@@ -108,6 +109,7 @@ namespace Portfolio.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
+        [HttpGet("Delete/{id}")]
         public IActionResult Delete(int id)
         {
             var projectTechStack = _context.ProjectTechStacks.Find(id);
