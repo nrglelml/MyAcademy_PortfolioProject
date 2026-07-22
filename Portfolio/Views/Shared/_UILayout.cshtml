@@ -194,9 +194,13 @@
 </head>
 <body class="bg-background text-on-background antialiased selection:bg-primary/30 selection:text-primary">
     <!-- TopNavBar -->
+    
     <nav class="bg-background/80 dark:bg-background/80 backdrop-blur-xl border-b border-outline-variant/10 fixed top-0 w-full z-50">
         <div class="flex justify-between items-center max-w-[1200px] mx-auto px-gutter h-20">
-            <a class="font-headline-md text-headline-md font-extrabold tracking-tighter text-on-background dark:text-on-background cursor-pointer active:scale-95" href="/#">ALEX.DEV</a>
+            
+                <a class="font-headline-md text-headline-md font-extrabold tracking-tighter text-on-background dark:text-on-background cursor-pointer active:scale-95" href="/#">Nurgül Elmalı</a>
+            
+            
             <div class="hidden md:flex items-center gap-stack-lg">
                 <a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors duration-300 font-body-md text-body-md" href="/#about">Hakkımda</a>
                 <a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors duration-300 font-body-md text-body-md" href="/#services">Servislerim</a>
@@ -215,18 +219,7 @@
     <main class="pt-20">
       @RenderBody()
         <!-- Footer -->
-        <footer class="bg-surface-container-lowest dark:bg-surface-container-lowest border-t border-outline-variant/10 w-full py-section-padding-mobile md:py-section-padding-desktop">
-            <div class="max-w-[1200px] mx-auto px-gutter flex flex-col md:flex-row justify-between items-center gap-stack-md">
-                <span class="font-headline-md text-headline-md text-on-surface">ALEX.DEV</span>
-                <p class="font-label-sm text-label-sm text-on-surface-variant">© @DateTime.Now. Alex Dev. Built with Precision.</p>
-                <div class="flex gap-stack-md">
-                    <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-all opacity-80 hover:opacity-100" href="#">LinkedIn</a>
-                    <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-all opacity-80 hover:opacity-100" href="#">GitHub</a>
-                    <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-all opacity-80 hover:opacity-100" href="#">Dribbble</a>
-                    <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-all opacity-80 hover:opacity-100" href="#">Twitter</a>
-                </div>
-            </div>
-        </footer>
+        @await Component.InvokeAsync("_UIFooterComponent")
     </main>
     <script>
         document.addEventListener('DOMContentLoaded', () => {

@@ -1,0 +1,14 @@
+﻿@*
+          UI Footer Component
+*@
+@model ContactInfo
+
+<footer class="bg-surface-container-lowest dark:bg-surface-container-lowest border-t border-outline-variant/10 w-full py-section-padding-mobile md:py-section-padding-desktop">
+    <div class="max-w-[1200px] mx-auto px-gutter flex flex-col md:flex-row justify-between items-center gap-stack-md">
+        <p class="font-label-sm text-label-sm text-on-surface-variant">© @DateTime.Now.Year. Nurgül Elmalı. Tutkuyla yapıldı.</p>
+        <div class="flex gap-stack-md">
+            <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-all opacity-80 hover:opacity-100" href="@Model.LinkedinURL">Linkedin</a>
+            <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-all opacity-80 hover:opacity-100" href="@Model.GithubURL">GitHub</a>
+        </div>
+    </div>
+</footer>
