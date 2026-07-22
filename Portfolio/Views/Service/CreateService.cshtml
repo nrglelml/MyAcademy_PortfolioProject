@@ -1,0 +1,55 @@
+﻿@model Service
+@{
+    ViewData["Title"] = "Yeni Servis Oluştur";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+  
+
+    <form method="post" action="/Admin/Service/CreateService">
+        <div class="mb-3">
+            <label class="form-label font-weight-bold">Servis Adı</label>
+            <input type="text" class="form-control" asp-for="Title" placeholder="Örn: Web Development" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label font-weight-bold">İkon Adı</label>
+
+            <!-- Canlı Önizleme ve Input Grubu -->
+            <div class="input-group">
+                <span class="input-group-text">
+                    <span id="icon-preview" class="material-symbols-outlined">code</span>
+                </span>
+                <input type="text" id="icon-input" class="form-control" asp-for="Icon" placeholder="Örn: code, settings, terminal" oninput="updateIconPreview()" required />
+            </div>
+
+            <!-- Kullanıcı için Açıklama (Help Text) -->
+            <small class="form-text text-muted mt-1 d-block">
+                * Kullanmak istediğiniz ikonun adını küçük harflerle ve boşluk yerine alt çizgi (<code>_</code>) kullanarak yazın.<br />
+                * İkon listesini incelemek ve ikon adlarını kopyalamak için
+                <a href="https://fonts.google.com/icons?icon.set=Material+Symbols" target="_blank" class="fw-bold text-primary">
+                    Google Material Symbols Kütüphanesi'ni
+                </a> ziyaret edebilirsiniz.
+            </small>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label font-weight-bold">Açıklama</label>
+            <textarea class="form-control" asp-for="Description" rows="4" placeholder="Servis hakkında kısa bir açıklama giriniz..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary px-4">Kaydet</button>
+    </form>
+</div>
+
+<!-- Canlı Önizleme Scripti -->
+<script>
+    function updateIconPreview() {
+        const inputVal = document.getElementById('icon-input').value.trim();
+        const iconPreview = document.getElementById('icon-preview');
+
+        // Input boşsa varsayılan olarak 'code' göster, doluysa girilen değeri bas
+        iconPreview.textContent = inputVal !== "" ? inputVal : "code";
+    }
+</script>
