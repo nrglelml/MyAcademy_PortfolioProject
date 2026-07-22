@@ -1,0 +1,134 @@
+﻿@model SettingsViewModel
+@{
+    ViewData["Title"] = "Ayarlar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+
+<div class="mb-stack-lg">
+    <p class="text-on-surface-variant font-body-sm mt-1">Profil bilgilerinizi ve şifrenizi yönetin</p>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-lg">
+
+    <div class="glass-card rounded-xl p-lg">
+        <h2 class="font-headline-sm text-headline-sm text-on-background mb-md">Profil Bilgileri</h2>
+
+        <form id="profileForm" class="flex flex-col gap-md">
+            <div>
+                <label class="font-label-sm text-label-sm text-on-surface-variant block mb-2">Kullanıcı Adı</label>
+                <input name="UserName" class="w-full bg-surface-variant/30 border border-outline-variant rounded-md px-4 py-3 text-on-surface-variant" value="@Model.UserName" readonly />
+            </div>
+            <div>
+                <label class="font-label-sm text-label-sm text-on-surface-variant block mb-2" for="FullName">Ad Soyad</label>
+                <input class="w-full bg-surface-variant/50 border border-outline-variant rounded-md px-4 py-3 text-on-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                       id="FullName" name="FullName" type="text" value="@Model.FullName" required />
+            </div>
+            <div>
+                <label class="font-label-sm text-label-sm text-on-surface-variant block mb-2" for="ImageUrl">Profil Görseli URL</label>
+                <input class="w-full bg-surface-variant/50 border border-outline-variant rounded-md px-4 py-3 text-on-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                       id="ImageUrl" name="ImageUrl" type="text" value="@Model.ImageUrl" placeholder="https://..." />
+            </div>
+            <button type="submit" class="px-6 py-3 bg-primary text-on-primary rounded-DEFAULT font-label-sm text-label-sm hover:opacity-90 transition-opacity mt-2">
+                Bilgileri Kaydet
+            </button>
+        </form>
+    </div>
+
+    <div class="glass-card rounded-xl p-lg">
+        <h2 class="font-headline-sm text-headline-sm text-on-background mb-md">Şifre Değiştir</h2>
+
+        <form id="passwordForm" class="flex flex-col gap-md">
+            <div>
+                <label class="font-label-sm text-label-sm text-on-surface-variant block mb-2" for="CurrentPassword">Mevcut Şifre</label>
+                <input class="w-full bg-surface-variant/50 border border-outline-variant rounded-md px-4 py-3 text-on-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                       id="CurrentPassword" name="CurrentPassword" type="password" required />
+            </div>
+            <div>
+                <label class="font-label-sm text-label-sm text-on-surface-variant block mb-2" for="NewPassword">Yeni Şifre</label>
+                <input class="w-full bg-surface-variant/50 border border-outline-variant rounded-md px-4 py-3 text-on-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                       id="NewPassword" name="NewPassword" type="password" minlength="6" required />
+            </div>
+            <div>
+                <label class="font-label-sm text-label-sm text-on-surface-variant block mb-2" for="ConfirmNewPassword">Yeni Şifre (Tekrar)</label>
+                <input class="w-full bg-surface-variant/50 border border-outline-variant rounded-md px-4 py-3 text-on-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                       id="ConfirmNewPassword" name="ConfirmNewPassword" type="password" minlength="6" required />
+            </div>
+            <button type="submit" class="px-6 py-3 bg-primary text-on-primary rounded-DEFAULT font-label-sm text-label-sm hover:opacity-90 transition-opacity mt-2">
+                Şifreyi Güncelle
+            </button>
+        </form>
+    </div>
+
+</div>
+
+<script>
+      async function postForm(form, url) {
+        const btn = form.querySelector("button[type=submit]");
+        const originalText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = "Kaydediliyor...";
+
+        try {
+            const formData = new FormData(form);
+            const response = await fetch(url, { method: "POST", body: formData });
+
+            if (response.ok) {
+                await Swal.fire({
+                    title: "Başarılı",
+                    text: "Değişiklikler kaydedildi.",
+                    icon: "success",
+                    confirmButtonColor: "#a78bfa",
+                    confirmButtonText: "Tamam",
+                });
+                return true;
+            } else {
+                const rawText = await response.text();
+                console.error("Sunucu cevabı:", response.status, rawText);
+
+                let message = `Hata (HTTP ${response.status}): ${rawText.substring(0, 200)}`;
+                try {
+                    const data = JSON.parse(rawText);
+                    if (data?.message) message = data.message;
+                    else if (data?.errors) message = JSON.stringify(data.errors);
+                } catch { /* JSON değilse yukarıdaki ham metin kalır */ }
+
+                await Swal.fire({
+                    title: "Hata",
+                    text: message,
+                    icon: "error",
+                    confirmButtonColor: "#d33",
+                    confirmButtonText: "Tamam",
+                });
+                return false;
+            }
+        } catch (err) {
+            console.error("Fetch hatası:", err);
+            await Swal.fire({
+                title: "Bağlantı Hatası",
+                text: "Sunucuya ulaşılamadı: " + err.message,
+                icon: "error",
+                confirmButtonColor: "#d33",
+                confirmButtonText: "Tamam",
+            });
+            return false;
+        } finally {
+            btn.disabled = false;
+            btn.textContent = originalText;
+        }
+    }
+
+        document.getElementById("profileForm").addEventListener("submit", async function (e) {
+        e.preventDefault();
+        const success = await postForm(e.target, "/Admin/Settings/UpdateProfile");
+        if (success) {
+            location.reload();
+        }
+    });
+
+    document.getElementById("passwordForm").addEventListener("submit", async function (e) {
+        e.preventDefault();
+        const success = await postForm(e.target, "/Admin/Settings/ChangePassword");
+        if (success) e.target.reset();
+    });
+</script>
