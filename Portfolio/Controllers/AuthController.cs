@@ -56,7 +56,7 @@ namespace Portfolio.Controllers
             };
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProps);
-            return RedirectToAction("Index", "About");
+            return RedirectToAction("Index", "Dashboard");
         }
 
         public async Task<IActionResult> Logout()
