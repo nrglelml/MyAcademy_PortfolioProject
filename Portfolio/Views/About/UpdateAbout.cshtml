@@ -3,20 +3,44 @@
     ViewData["Title"] = "Hakkımda Bilgisini Güncelle";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<br />
-<form method="post" action="/Admin/About/UpdateAbout">
-    <input type="hidden" asp-for="Id" />
-    <label>Başlık</label>
-    <input type="text" asp-for="Title" class="form-control" required />
-    <br />
-    <label>Açıklama</label>
-    <textarea rows="5" asp-for="Description" class="form-control" required></textarea>
-    <br />
-    <label>Görsel URL</label>
-    <input type="text" asp-for="ImageUrl" class="form-control" required />
-    <br />
-    <button class="btn btn-outline-dark">Kaydet</button>
-</form>
 
+<div class="container mt-4">
+    <h2>Hakkımda Bilgisini Güncelle</h2>
+    <hr />
 
+    <form method="post" action="/Admin/About/UpdateAbout" enctype="multipart/form-data">
 
+        <input type="hidden" asp-for="Id" />
+
+        <div class="mb-3">
+            <label class="form-label fw-bold">Başlık</label>
+            <input type="text" asp-for="Title" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-bold">Açıklama</label>
+            <textarea rows="5" asp-for="Description" class="form-control" required></textarea>
+        </div>
+
+        @if (!string.IsNullOrEmpty(Model?.ImageUrl))
+        {
+            <div class="mb-3">
+                <label class="form-label fw-bold d-block">Mevcut Görsel</label>
+                <img src="@Model.ImageUrl" alt="@Model.Title" class="img-thumbnail rounded" style="max-height: 150px; object-fit: cover;" />
+            </div>
+        }
+
+        <div class="mb-3">
+            <label class="form-label fw-bold">Görseli Değiştir (İsteğe Bağlı)</label>
+            <input type="file" name="imageFile" class="form-control" accept="image/*" />
+            <small class="text-muted">Yeni bir resim seçmezseniz mevcut resminiz korunacaktır.</small>
+        </div>
+
+        <div class="d-flex gap-2 mt-4">
+            <button type="submit" class="btn btn-outline-dark">
+                <span class="material-symbols-outlined align-middle fs-6">sync</span> Güncelle
+            </button>
+            <a href="/Admin/About/Index" class="btn btn-outline-secondary">İptal</a>
+        </div>
+    </form>
+</div>

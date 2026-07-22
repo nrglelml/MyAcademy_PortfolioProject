@@ -4,50 +4,78 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<table class="table table-hover table table-bordered">
-    <tr>
+<div class="container-fluid mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Projelerim</h2>
+        <a href="/Admin/Project/CreateProject/" class="btn btn-outline-dark">
+            <span class="material-symbols-outlined align-middle fs-6">add</span> Yeni Proje Oluştur
+        </a>
+    </div>
+    <hr />
 
-        <th>Proje Adı</th>
-        <th>Açıklama</th>
-        <th>Github Linki</th>
-        <th>Görsel</th>
-        <th>İşlemler</th>
-
-    </tr>
-    <tbody>
-        @foreach (var project in Model)
-        {
+    <table class="table table-hover table-bordered align-middle">
+        <thead class="table-light">
             <tr>
-                <td>@project.Name</td>
-                <td>@project.Description</td>
-                <td> <a href="@project.GithubUrl" target="_blank" class="btn btn-outline-dark">Github Url</a></td>
-                <td><img src="@project.ImageUrl" style="height:50px;width:50px" /></td>
-                <td>
-                    <button onclick="deleteProject(@project.Id)" class="btn btn-outline-danger">Sil</button>
-                    <a href="/Admin/Project/UpdateProject/@project.Id" class="btn btn-outline-info">Güncelle</a>
-                </td>
+                <th style="width: 80px;" class="text-center">Görsel</th>
+                <th>Proje Adı</th>
+                <th style="width: 35%;">Açıklama</th>
+                <th style="width: 140px;" class="text-center">GitHub</th>
+                <th style="width: 160px;" class="text-center">İşlemler</th>
             </tr>
-        }
-    </tbody>
-</table>
-
-<a href="/Admin/Project/CreateProject/" class="btn btn-outline-dark">Yeni Proje Oluştur</a>
+        </thead>
+        <tbody>
+            @foreach (var project in Model)
+            {
+                <tr>
+                    <td class="text-center">
+                        @if (!string.IsNullOrEmpty(project.ImageUrl))
+                        {
+                            <img src="@project.ImageUrl" alt="@project.Name" class="rounded border" style="height: 50px; width: 50px; object-fit: cover;" />
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">Görsel Yok</span>
+                        }
+                    </td>
+                    <td class="fw-bold">@project.Name</td>
+                    <td class="text-truncate" style="max-width: 300px;" title="@project.Description">@project.Description</td>
+                    <td class="text-center">
+                        @if (!string.IsNullOrEmpty(project.GithubUrl))
+                        {
+                            <a href="@project.GithubUrl" target="_blank" class="btn btn-outline-dark btn-sm">
+                                Linke Git
+                            </a>
+                        }
+                        else
+                        {
+                            <span class="text-muted fs-7">-</span>
+                        }
+                    </td>
+                    <td class="text-center">
+                        <a href="/Admin/Project/UpdateProject/@project.Id" class="btn btn-outline-info btn-sm">Güncelle</a>
+                        <button onclick="deleteProject(@project.Id)" class="btn btn-outline-danger btn-sm">Sil</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
 <script>
-    function deleteProject(id){
-
-            Swal.fire({
-      title: "Silmek istediğinize emin misiniz?",
-      text: "Bu işlemi geri alamazsınız!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      confirmButtonText: "Evet, Sil!",
-      cancelButtonText: "İptal",
-      cancelButtonColor: "#d33",
-    }).then((result) => {
-      if (result.isConfirmed)
-      window.location.href = "/Admin/Project/DeleteProject/"+id;
-    });
+    function deleteProject(id) {
+        Swal.fire({
+            title: "Silmek istediğinize emin misiniz?",
+            text: "Bu işlemi geri alamazsınız!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Evet, Sil!",
+            cancelButtonText: "İptal",
+            cancelButtonColor: "#d33",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/Admin/Project/DeleteProject/" + id;
+            }
+        });
     }
 </script>
