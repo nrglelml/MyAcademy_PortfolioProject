@@ -12,7 +12,7 @@ namespace Portfolio.Controllers
         {
             _context = context;
         }
-
+        [Route("/ReferansOlustur")]
         [HttpGet]
         public IActionResult Index()
         {
