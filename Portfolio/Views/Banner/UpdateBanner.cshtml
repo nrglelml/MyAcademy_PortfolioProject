@@ -1,0 +1,46 @@
+﻿@model Banner
+@{
+    ViewData["Title"] = "Banner Güncelle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <h2>Banner Güncelle</h2>
+    <hr />
+
+    <form method="post" action="/Admin/Banner/UpdateBanner" enctype="multipart/form-data">
+        <input type="hidden" asp-for="Id" />
+
+        <div class="mb-3">
+            <label class="form-label fw-bold">Başlık</label>
+            <input type="text" asp-for="Title" class="form-control" required />
+        </div>
+
+        <!-- Mevcut Görsel Önizleme -->
+        @if (!string.IsNullOrEmpty(Model?.ImageUrl))
+        {
+            <div class="mb-3">
+                <label class="form-label fw-bold d-block">Mevcut Banner Görseli</label>
+                <img src="@Model.ImageUrl" alt="@Model.Title" class="img-thumbnail rounded" style="max-height: 150px; object-fit: cover;" />
+            </div>
+        }
+
+        <div class="mb-3">
+            <label class="form-label fw-bold">Görseli Değiştir (İsteğe Bağlı)</label>
+            <input type="file" name="imageFile" class="form-control" accept="image/*" />
+            <small class="text-muted">Yeni bir görsel seçmezseniz mevcut görseliniz korunacaktır.</small>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-bold">Açıklama</label>
+            <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+        </div>
+
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-info text-white">
+                <span class="material-symbols-outlined align-middle fs-6">sync</span> Güncelle
+            </button>
+            <a href="/Admin/Banner/Index" class="btn btn-outline-secondary">İptal</a>
+        </div>
+    </form>
+</div>
