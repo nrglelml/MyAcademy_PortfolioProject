@@ -1,0 +1,51 @@
+﻿@model List<Skill>
+@{
+    ViewData["Title"] = "Yeteneklerim";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="table table-hover table table-bordered">
+    <tr>
+
+        <th>Başlık</th>
+        <th>Durum</th>
+        <th>İşlemler</th>
+
+    </tr>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>
+                    @(item.IsActive == false ? "Pasif" : "Aktif")
+                </td>
+                <td>
+                    <button onclick="deleteSkill(@item.Id)" class="btn btn-outline-danger">Sil</button>
+                    <a href="/Admin/Skills/UpdateSkill/@item.Id" class="btn btn-outline-info">Güncelle</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="/Admin/Skills/CreateSkill/" class="btn btn-outline-dark">Yeni Yetenek Ekle</a>
+
+<script>
+    function deleteSkill(id){
+
+            Swal.fire({
+      title: "Silmek istediğinize emin misiniz?",
+      text: "Bu işlemi geri alamazsınız!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      confirmButtonText: "Evet, Sil!",
+      cancelButtonText: "İptal",
+      cancelButtonColor: "#d33",
+    }).then((result) => {
+      if (result.isConfirmed)
+      window.location.href = "/Admin/Skills/DeleteSkill/"+id;
+    });
+    }
+</script>
