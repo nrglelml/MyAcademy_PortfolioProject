@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Portfolio.Data.Context;
 
-namespace Portfolio.Views.Shared
+namespace Portfolio.ViewComponents.UILayout
 {
     public class _UIBannerComponent:ViewComponent
     {

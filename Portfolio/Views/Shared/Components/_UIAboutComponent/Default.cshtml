@@ -1,7 +1,7 @@
 ﻿@model About?
 @if (Model == null)
 {
-    <section class="relative min-h-[921px] flex items-center justify-center px-gutter" id="hero">
+    <section class="relative min-h-[921px] flex items-center justify-center px-gutter" id="about">
         <p class="font-body-lg text-body-lg text-on-surface-variant">Hakkımda içeriği bulunamadı.</p>
     </section>
 }
@@ -35,6 +35,10 @@ else
                         <p class="font-body-md text-body-md text-on-surface-variant">
                             @(string.IsNullOrEmpty(ViewBag.DatabaseTechs) ? "Belirtilmemiş" : ViewBag.DatabaseTechs)
                         </p>
+                    </div>
+                    <div class="flex flex-col gap-stack-md">
+                        <h3 class="font-headline-sm text-headline-sm text-on-background">Yeteneklerim</h3>
+                        @await Component.InvokeAsync("_UISkillComponent")
                     </div>
                 </div>
             </div>
