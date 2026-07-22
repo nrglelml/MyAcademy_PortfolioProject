@@ -24,7 +24,8 @@
                 <div class="h-40 md:h-48 lg:h-52 overflow-hidden relative">
                     <img alt="@item.ProjectName" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="@item.ImageUrl" />
                     <div class="absolute inset-0 bg-background/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <a class="px-6 py-2 bg-primary text-on-primary rounded-DEFAULT font-label-sm text-label-sm" href="#">Projeyi Gör</a>
+                        <a class="px-6 py-2 bg-primary text-on-primary rounded-DEFAULT font-label-sm text-label-sm"
+                           asp-controller="ProjectDetail" asp-action="Index" asp-route-id="@item.ProjectId">Projeyi Gör</a>
                     </div>
                 </div>
                 <div class="p-stack-md">

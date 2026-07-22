@@ -1,0 +1,46 @@
+﻿@model ProjectDetailViewModel
+@{
+    ViewData["Title"] = Model.Name;
+    Layout = "~/Views/Shared/_UILayout.cshtml";
+}
+
+<section class="py-section-padding-mobile md:py-section-padding-desktop px-gutter max-w-container-max mx-auto">
+
+    <a asp-controller="Default" asp-action="Index" asp-fragment="portfolio"
+       class="inline-flex items-center gap-2 mb-stack-lg text-on-surface-variant hover:text-on-background transition-colors">
+        <span class="material-symbols-outlined">arrow_back</span>
+        <span class="font-label-sm text-label-sm">Projelere Dön</span>
+    </a>
+
+    <div class="rounded-xl overflow-hidden glass-card mb-stack-lg">
+        <div class="w-full aspect-video">
+            <img src="@Model.ImageUrl" alt="@Model.Name" class="w-full h-full object-cover" />
+        </div>
+    </div>
+
+    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-stack-md mb-stack-md">
+        <div>
+            <h1 class="font-headline-lg text-headline-lg text-on-background mb-2">@Model.Name</h1>
+            <div class="flex flex-wrap gap-2 mt-3">
+                @foreach (var tech in Model.TechNames)
+                {
+                    <span class="px-3 py-1 bg-surface-variant rounded-full font-label-sm text-label-sm text-on-surface">@tech</span>
+                }
+            </div>
+        </div>
+
+        @if (!string.IsNullOrEmpty(Model.GithubUrl))
+        {
+            <a href="@Model.GithubUrl" target="_blank" rel="noopener noreferrer"
+               class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-on-primary rounded-DEFAULT font-label-sm text-label-sm hover:opacity-90 transition-opacity whitespace-nowrap">
+                <span class="material-symbols-outlined text-base">code</span>
+                <span>GitHub'da Gör</span>
+            </a>
+        }
+    </div>
+
+    <p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl leading-relaxed">
+        @Model.Description
+    </p>
+
+</section>
